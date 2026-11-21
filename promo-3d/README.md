@@ -12,7 +12,7 @@ Needs Chrome (`remotion.config.ts` points to /usr/bin/google-chrome; change for 
 ## Narration (ElevenLabs)
 Voice: "Marty - Warm, Confident Narrator" (id Z7AcxChWJEFai8hz5vYZ), model eleven_v4.
 Final clips live in `remotion/public/narration/` (silence-trimmed, loudness-normalised to -16 LUFS,
-some sped up 5-12% to fit their slot); raw takes are in `narration/takes/`. Timings are in the `VO` list in Promo.tsx.
+some sped up 5-12% to fit their slot); NEPS is written "Neps" in the prompts so it is read as one word. Raw takes are in `narration/takes/`. Timings are in the `VO` list in Promo.tsx.
 
 | Start | Clip | Line |
 |------:|------|------|
@@ -23,5 +23,5 @@ some sped up 5-12% to fit their slot); raw takes are in `narration/takes/`. Timi
 | 24.80 | vo5_affected | NextPath instantly flags every affected system: DWDM, Metro-E, 5G sites, and customer links. |
 | 32.50 | vo6_routes   | Then it finds the alternative paths, and ranks the best route first. |
 | 37.60 | vo7_ready    | Alternative path, ready. In seconds. |
-| 41.60 | vo8_why      | Thirty to sixty minutes, down to seconds. Faster restoration. And 5G sites at risk, right on the map. |
-| 49.15 | vo9_next     | Next: live data from NEPS and FLASH. NextPath. Cut point in, next path out. |
+| 41.15 | vo8_why      | Why it matters. Thirty to sixty minutes, down to seconds. Faster restoration. And 5G sites at risk, right on the map. |
+| 49.50 | vo9_next     | Next: live data from NEPS and FLASH. NextPath. Cut point in, next path out. |

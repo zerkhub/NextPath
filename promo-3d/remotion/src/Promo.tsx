@@ -72,8 +72,8 @@ const VO: {at:number; file:string}[] = [
   {at:24.80, file:'vo5_affected.mp3'},  // NextPath instantly flags every affected system ...
   {at:32.50, file:'vo6_routes.mp3'},    // Then it finds the alternative paths, and ranks the best route first.
   {at:37.60, file:'vo7_ready.mp3'},     // Alternative path, ready. In seconds.
-  {at:41.60, file:'vo8_why.mp3'},       // Thirty to sixty minutes, down to seconds. ...
-  {at:49.15, file:'vo9_next.mp3'},      // Next: live data from NEPS and FLASH. NextPath. Cut point in, next path out.
+  {at:41.15, file:'vo8_why.mp3'},       // Why it matters. Thirty to sixty minutes, down to seconds. ...
+  {at:49.50, file:'vo9_next.mp3'},      // Next: live data from NEPS and FLASH. NextPath. Cut point in, next path out.
 ];
 
 const WIN = (f:number,a:number,b:number,fade=0.4)=> Math.min(ramp(f,a,a+fade), 1-ramp(f,b-fade,b));
