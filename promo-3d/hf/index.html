@@ -1,0 +1,129 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/><meta name="viewport" content="width=1920, height=1080"/>
+<script src="./gsap.min.js"></script>
+<style>
+@font-face{font-family:'HK Grotesk Wide';font-weight:700;src:url('fonts/HKGroteskWide-Bold.otf')}
+@font-face{font-family:'HK Grotesk Wide';font-weight:900;src:url('fonts/HKGroteskWide-Black.otf')}
+@font-face{font-family:'Roboto';font-weight:400;src:url('fonts/Roboto-Regular.ttf')}
+@font-face{font-family:'Roboto';font-weight:500;src:url('fonts/Roboto-Medium.ttf')}
+@font-face{font-family:'Roboto';font-weight:700;src:url('fonts/Roboto-Bold.ttf')}
+@font-face{font-family:'Roboto';font-weight:800;src:url('fonts/Roboto-Black.ttf')}
+:root{--bg:#06013A;--ink:#fff;--mute:#B4C3F5;--blue:#99B6FF;--orange:#FF7A00;--red:#FF4A24;--line:#3d34c4}
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{width:1920px;height:1080px;overflow:hidden;background:var(--bg);font-family:'Roboto',sans-serif;color:var(--ink)}
+#root{position:relative;width:1920px;height:1080px;background:radial-gradient(1200px 800px at 70% 30%,#1a0a7a 0%,var(--bg) 70%)}
+#grid{position:absolute;inset:0;opacity:.35;background-image:radial-gradient(circle,#2f2a96 1.2px,transparent 1.6px);background-size:48px 48px}
+.scene{position:absolute;inset:0;opacity:0}
+.abs{position:absolute}
+.hk{font-family:'HK Grotesk Wide'}
+.h2{font-family:'HK Grotesk Wide';font-size:60px;font-weight:700;letter-spacing:-1px;line-height:1.05}
+.blue{color:var(--blue)}.orange{color:var(--orange)}.red{color:var(--red)}
+.step{display:flex;align-items:center;gap:26px;height:104px;padding:0 36px;border-radius:22px;background:rgba(24,0,146,.45);border:1.5px solid var(--line);font-size:44px;font-weight:600;width:1000px}
+.step .n{width:58px;height:58px;border-radius:50%;background:#24109f;border:2px solid var(--blue);display:flex;align-items:center;justify-content:center;font-size:30px;font-weight:800;color:var(--blue);flex:none}
+.step .tag{margin-left:auto;font-size:26px;font-weight:700;color:var(--orange)}
+.imp{position:absolute;top:300px;width:540px;height:520px;border-radius:32px;padding:52px 46px;background:linear-gradient(180deg,rgba(36,16,170,.6),rgba(10,2,80,.7));border:2px solid var(--line)}
+.imp .big{font-family:'HK Grotesk Wide';font-size:46px;font-weight:700;letter-spacing:-1px;line-height:1.02}
+.imp .small{font-size:34px;font-weight:500;color:var(--mute);margin-top:30px;line-height:1.35}
+.tl{position:absolute;top:400px;width:640px;height:350px;border-radius:30px;padding:44px;background:rgba(36,16,170,.5);border:2px solid var(--line)}
+.tl .k{font-size:26px;letter-spacing:4px;font-weight:800;color:var(--blue)}
+.tl .v{font-family:'HK Grotesk Wide';font-size:36px;font-weight:700;margin-top:14px;letter-spacing:-.5px;line-height:1.08}
+.tl .d{font-size:28px;color:var(--mute);margin-top:16px;line-height:1.35}
+</style>
+</head>
+<body>
+<div id="root" data-composition-id="main" data-start="0" data-duration="56" data-width="1920" data-height="1080" data-fps="30">
+  <div id="grid"></div>
+
+  <!-- S2 : 6 - 16 -->
+  <div class="scene" id="s2">
+    <div class="abs t2" style="left:110px;top:92px;font-size:28px;letter-spacing:5px;font-weight:800;color:var(--orange)">TODAY: NO ALTERNATE ROUTE FUNCTION</div>
+    <div class="abs" style="left:110px;top:170px;display:flex;flex-direction:column;gap:20px">
+      <div class="step st"><div class="n">1</div>Find the cable in NEPS<div class="tag">no reroute</div></div>
+      <div class="step st"><div class="n">2</div>Recall routes from memory<div class="tag">NFF team</div></div>
+      <div class="step st"><div class="n">3</div>Check spare cores in FLASH<div class="tag">2nd system</div></div>
+      <div class="step st"><div class="n">4</div>Repeat for every route<div class="tag">again</div></div>
+      <div class="step st"><div class="n">5</div>Restoration waits<div class="tag">downtime</div></div>
+    </div>
+    <svg class="abs clk" style="left:1280px;top:150px" width="560" height="560" viewBox="-280 -280 560 560">
+      <circle r="230" fill="rgba(24,0,146,.5)" stroke="#3d34c4" stroke-width="4"/>
+      <g id="ticks"></g>
+      <g id="hand"><line x1="0" y1="0" x2="0" y2="-200" stroke="#FF4A24" stroke-width="8" stroke-linecap="round"/></g>
+      <circle r="14" fill="#FF4A24"/>
+    </svg>
+    <div class="abs clkt" style="left:1280px;top:760px;width:560px;text-align:center;font-size:42px;font-weight:700;color:var(--red)">30 to 60 min per route</div>
+    <div class="abs s2end hk" style="left:110px;top:840px;font-size:46px;font-weight:700;letter-spacing:-.5px">Manual. Slow. <span class="red">Hard to repeat.</span></div>
+  </div>
+
+  <!-- S3 : 16 - 21 -->
+  <div class="scene" id="s3">
+    <svg class="abs" id="logomark" style="left:204px;top:273px" width="230" height="230" viewBox="0 0 240 240">
+      <path id="lm1" d="M30 190 L90 120 L150 120 L210 50" fill="none" stroke="#fff" stroke-width="16" stroke-linecap="round" stroke-linejoin="round"/>
+      <path id="lm2" d="M90 120 L130 190 L210 190" fill="none" stroke="#FF7A00" stroke-width="16" stroke-linecap="round" stroke-linejoin="round"/>
+      <g id="lmn"><circle cx="30" cy="190" r="15" fill="#06013A" stroke="#fff" stroke-width="8"/><circle cx="90" cy="120" r="15" fill="#06013A" stroke="#fff" stroke-width="8"/><circle cx="150" cy="120" r="15" fill="#06013A" stroke="#fff" stroke-width="8"/><circle cx="210" cy="50" r="15" fill="#06013A" stroke="#fff" stroke-width="8"/><circle cx="130" cy="190" r="15" fill="#06013A" stroke="#fff" stroke-width="8"/><circle cx="210" cy="190" r="15" fill="#06013A" stroke="#fff" stroke-width="8"/></g>
+    </svg>
+    <div class="abs hk" id="wm" style="left:473px;top:230px;font-size:242px;font-weight:900;letter-spacing:-3px;white-space:nowrap">Next<span class="blue">Path</span></div>
+    <div class="abs" id="tag1" style="left:0;width:1920px;text-align:center;top:640px;font-size:64px;font-weight:600;letter-spacing:-1px">Cut point in. <span class="orange">Next path out.</span></div>
+    <div class="abs" id="tag2" style="left:0;width:1920px;text-align:center;top:760px;font-size:34px;color:var(--mute);font-weight:500;letter-spacing:6px">FIBRE REROUTE PLANNER FOR TM</div>
+  </div>
+
+  <!-- S5 : 41 - 49 -->
+  <div class="scene" id="s5">
+    <div class="abs h2" id="s5h" style="left:110px;top:110px">Why it <span class="blue">matters</span></div>
+    <div class="imp ic" style="left:110px"><div class="big">30-60 min<br><span class="orange">to seconds</span></div><div class="small">Alternative routes found automatically, not from memory.</div></div>
+    <div class="imp ic" style="left:690px"><div class="big">Fast<br><span class="blue">restoration</span></div><div class="small">Field teams see routes, spare cores and affected systems in one view.</div></div>
+    <div class="imp ic" style="left:1270px"><div class="big">SPOF<br><span class="orange">+ 5G sites</span></div><div class="small">Built after DNB SPOF cases. 5G sites at risk shown on the map.</div></div>
+  </div>
+
+  <!-- S6 : 49 - 56 -->
+  <div class="scene" id="s6">
+    <div class="abs h2" id="s6h" style="left:110px;top:130px">From prototype to <span class="blue">production</span></div>
+    <div class="tl" id="tlA" style="left:110px"><div class="k">TODAY</div><div class="v">Working prototype</div><div class="d">Nodes from NEPS, routes from Google Earth KML, cores from FLASH. All keyed in manually.</div></div>
+    <svg class="abs" id="arr" style="left:770px;top:540px" width="380" height="80" viewBox="0 0 380 80"><path id="arrp" d="M10 40 H340" stroke="#99B6FF" stroke-width="8" stroke-linecap="round" fill="none"/><path id="arrh" d="M312 12 L346 40 L312 68" stroke="#99B6FF" stroke-width="8" stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg>
+    <div class="tl" id="tlB" style="left:1170px;width:640px"><div class="k" style="color:var(--orange)">NEXT</div><div class="v">Connected to NEPS and FLASH</div><div class="d">API access for live data. No manual plotting.</div></div>
+    <div class="abs hk" id="s6w" style="left:0;width:1920px;text-align:center;top:850px;font-size:72px;font-weight:900;letter-spacing:-1px">Next<span class="blue">Path</span></div>
+    <div class="abs" id="s6t" style="left:0;width:1920px;text-align:center;top:970px;font-size:40px;font-weight:500;color:var(--mute)">Cut point in. Next path out.</div>
+  </div>
+</div>
+<script>
+window.__timelines = window.__timelines || {};
+const tl = gsap.timeline({ paused: true });
+const NS='http://www.w3.org/2000/svg';
+const ticks=document.getElementById('ticks');
+for(let i=0;i<60;i++){const a=i*6*Math.PI/180,long=i%5==0,r1=long?190:204,r2=214;
+  const l=document.createElementNS(NS,'line');
+  [['x1',Math.sin(a)*r1],['y1',-Math.cos(a)*r1],['x2',Math.sin(a)*r2],['y2',-Math.cos(a)*r2]].forEach(([k,v])=>l.setAttribute(k,v));
+  l.setAttribute('stroke',long?'#B4C3F5':'#5048d0');l.setAttribute('stroke-width',long?6:3);l.setAttribute('stroke-linecap','round');ticks.appendChild(l);}
+
+const FADE=0.4;
+function scene(id,a,b,first,last){
+  tl.set('#'+id,{opacity:0},0);
+  tl.fromTo('#'+id,{opacity:first?1:0},{opacity:1,duration:FADE,ease:'none'},a);
+  if(!last) tl.to('#'+id,{opacity:0,duration:FADE,ease:'none'},b-FADE);
+}
+scene('s2',6,16);scene('s3',16,21);scene('s5',41,49);scene('s6',49,56,false,true);
+const up=(sel,t,d=0.55)=>tl.fromTo(sel,{y:26,opacity:0},{y:0,opacity:1,duration:d,ease:'power3.out'},t);
+
+/* S2 */
+up('.t2',6.3,0.6);
+document.querySelectorAll('.st').forEach((e,i)=>{ e.id='st'+i; up('#st'+i,7.0+i*1.2,0.5); });
+up('.clk',7.2,0.6); up('.clkt',7.2,0.6);
+tl.fromTo('#hand',{rotation:0,svgOrigin:'0 0'},{rotation:360*2.4,svgOrigin:'0 0',duration:8.6,ease:'power1.inOut'},7.2);
+up('.s2end',13.6,0.7);
+
+/* S3 */
+tl.fromTo('#logomark',{scale:.6,opacity:0,transformOrigin:'50% 50%'},{scale:1,opacity:1,duration:.8,ease:'back.out(1.6)'},16.4);
+up('#wm',16.9,0.7); up('#tag1',18.3,0.7); up('#tag2',19.2,0.6);
+
+/* S5 */
+up('#s5h',41.4,0.6);
+document.querySelectorAll('.ic').forEach((e,i)=>{ e.id='ic'+i; up('#ic'+i,42.3+i*1.5,0.6); });
+
+/* S6 */
+up('#s6h',49.4,0.6); up('#tlA',50.4,0.6); up('#arr',51.6,0.5); up('#tlB',52.0,0.6); up('#s6w',53.6,0.8); up('#s6t',54.2,0.8);
+
+window.__timelines["main"] = tl;
+tl.seek(0);
+</script>
+</body></html>

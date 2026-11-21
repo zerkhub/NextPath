@@ -1,0 +1,6 @@
+import {Config} from '@remotion/cli/config';
+Config.setBrowserExecutable('/usr/bin/google-chrome');
+Config.setChromiumOpenGlRenderer('swangle');
+Config.setVideoImageFormat('jpeg');
+Config.setJpegQuality(95);
+Config.setConcurrency(2);
