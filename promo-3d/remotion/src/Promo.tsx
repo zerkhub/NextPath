@@ -64,16 +64,52 @@ const Demo: React.FC<{t:number}> = ({t}) => {
 
 // Narration (ElevenLabs, voice "Marty - Warm, Confident Narrator", model eleven_v4).
 // Clips are pre-trimmed and tempo-matched in remotion/public/narration/. `at` = start time in seconds.
-const VO: {at:number; file:string}[] = [
-  {at: 0.50, file:'vo1_hook.mp3'},      // A fibre cut. A single point of failure. So... where is the next path?
-  {at: 6.30, file:'vo2_oldway.mp3'},    // Today, there's no reroute function. ...
-  {at:16.60, file:'vo3_logo.mp3'},      // This is NextPath. Cut point in. Next path out.
-  {at:21.70, file:'vo4_click.mp3'},     // Click a cable on the map to mark the cut point.
-  {at:24.80, file:'vo5_affected.mp3'},  // NextPath instantly flags every affected system ...
-  {at:32.50, file:'vo6_routes.mp3'},    // Then it finds the alternative paths, and ranks the best route first.
-  {at:37.60, file:'vo7_ready.mp3'},     // Alternative path, ready. In seconds.
-  {at:41.15, file:'vo8_why.mp3'},       // Why it matters. Thirty to sixty minutes, down to seconds. ...
-  {at:49.50, file:'vo9_next.mp3'},      // Next: live data from NEPS and FLASH. NextPath. Cut point in, next path out.
+const VO: {at:number; file:string; dur:number}[] = [
+  {at: 0.50, file:'vo1_hook.mp3', dur:5.59},      // A fibre cut. A single point of failure. So... where is the next path?
+  {at: 6.30, file:'vo2_oldway.mp3', dur:9.91},    // Today, there's no reroute function. ...
+  {at:16.60, file:'vo3_logo.mp3', dur:3.89},      // This is NextPath. Cut point in. Next path out.
+  {at:21.70, file:'vo4_click.mp3', dur:2.47},     // Click a cable on the map to mark the cut point.
+  {at:24.80, file:'vo5_affected.mp3', dur:7.51},  // NextPath instantly flags every affected system ...
+  {at:32.50, file:'vo6_routes.mp3', dur:3.96},    // Then it finds the alternative paths, and ranks the best route first.
+  {at:37.60, file:'vo7_ready.mp3', dur:2.95},     // Alternative path, ready. In seconds.
+  {at:41.15, file:'vo8_why.mp3', dur:8.28},       // Why it matters. Thirty to sixty minutes, down to seconds. ...
+  {at:49.50, file:'vo9_next.mp3', dur:6.43},      // Next: live data from NEPS and FLASH. NextPath. Cut point in, next path out.
+];
+
+// Background music (ElevenLabs Music v2.5, take bgm_1). The track's big lift sits at 17.45s in the file;
+// trimming 0.87s puts it on the logo reveal (16.58s). It is ducked under the narration.
+const MUSIC_TRIM = 0.87;
+const musicVolume = (t:number) => {
+  const base = 0.7 + (0.26-0.7)*ramp(t,16.45,16.6);           // quiet intro is lifted, loud body sits low
+  const talk = Math.max(0,...VO.map(v=>Math.min(ramp(t,v.at-0.25,v.at), 1-ramp(t,v.at+v.dur,v.at+v.dur+0.35))));
+  return base * (1-0.4*talk) * ramp(t,0,0.3);
+};
+
+// Sound effects (ElevenLabs Sound Effects v3). `at` = when the hit should land; `pk` = hit offset inside the file.
+const SFX_FILES: Record<string,{pk:number; vol:number}> = {
+  cut:{pk:0.09,vol:0.7}, whoosh:{pk:0.29,vol:0.35}, tick:{pk:0,vol:0.3}, logo:{pk:0.39,vol:0.55},
+  pop:{pk:0.07,vol:0.25}, click:{pk:0.10,vol:0.5}, scan:{pk:0.21,vol:0.3}, success:{pk:0.09,vol:0.45},
+};
+const SFX: {at:number; s:string; vol?:number; len?:number}[] = [
+  {at: 2.40, s:'cut'},                                                   // fibre cut (hook)
+  {at: 5.90, s:'whoosh'},                                                // -> old way
+  {at: 7.20, s:'tick', len:8.6},                                         // clock hand spins 7.2-15.8
+  ...[0,1,2,3,4].map(i=>({at:7.0+i*1.2, s:'pop'})),                      // 5 manual steps
+  {at:15.90, s:'whoosh'},                                                // -> logo
+  {at:16.58, s:'logo'},                                                  // logo reveal
+  {at:20.90, s:'whoosh'},                                                // -> demo
+  {at:24.40, s:'click'},                                                 // cursor click
+  {at:24.50, s:'cut', vol:0.4},                                          // cable cut on the map
+  {at:25.10, s:'scan'},                                                  // impact scan
+  ...[0,1,2,3].map(i=>({at:25.9+i*0.3, s:'pop', vol:0.2})),              // affected systems
+  ...[29.2,31.6,34.0].map(at=>({at, s:'pop'})),                          // route cards
+  {at:35.20, s:'pop', vol:0.35},                                         // BEST badge
+  {at:37.60, s:'success'},                                               // alternative path ready
+  {at:40.90, s:'whoosh'},                                                // -> why it matters
+  ...[42.3,43.8,45.3].map(at=>({at, s:'pop'})),                          // impact cards
+  {at:48.90, s:'whoosh'},                                                // -> roadmap
+  {at:50.40, s:'pop'}, {at:52.00, s:'pop'},                              // today / next cards
+  {at:53.60, s:'logo', vol:0.4},                                         // closing wordmark
 ];
 
 const WIN = (f:number,a:number,b:number,fade=0.4)=> Math.min(ramp(f,a,a+fade), 1-ramp(f,b-fade,b));
@@ -86,6 +122,10 @@ export const Promo: React.FC = () => {
     <AbsoluteFill style={{fontFamily:"'Roboto'",color:C.ink,background:C.bg}}>
       <style>{fontCss}</style>
       <Bg/>
+      <Audio src={staticFile('music/bgm.mp3')} trimBefore={Math.round(MUSIC_TRIM*fps)} volume={f=>musicVolume(f/fps)}/>
+      {SFX.map((x,i)=>{ const d=SFX_FILES[x.s]; const from=Math.max(0,Math.round((x.at-d.pk)*fps));
+        return (<Sequence key={'sfx'+i} from={from} durationInFrames={x.len?Math.round(x.len*fps):undefined}>
+          <Audio src={staticFile(`sfx/${x.s}.mp3`)} volume={f=>(x.vol??d.vol)*(x.len?1-ramp(f/fps,x.len-0.4,x.len):1)}/></Sequence>); })}
       {VO.map(v=>(<Sequence key={v.file} from={Math.round(v.at*fps)}><Audio src={staticFile(`narration/${v.file}`)}/></Sequence>))}
       {/* 2D scenes rendered by HyperFrames */}
       <Sequence from={6*fps} durationInFrames={15*fps}><OffthreadVideo src={staticFile('hf_2d.mp4')} startFrom={6*fps} muted/></Sequence>

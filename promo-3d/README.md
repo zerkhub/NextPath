@@ -25,3 +25,11 @@ some sped up 5-12% to fit their slot); NEPS is written "Neps" in the prompts so 
 | 37.60 | vo7_ready    | Alternative path, ready. In seconds. |
 | 41.15 | vo8_why      | Why it matters. Thirty to sixty minutes, down to seconds. Faster restoration. And 5G sites at risk, right on the map. |
 | 49.50 | vo9_next     | Next: live data from NEPS and FLASH. NextPath. Cut point in, next path out. |
+
+## Music & sound effects (ElevenLabs)
+- `remotion/public/music/bgm.mp3` – Music v2.5, 57 s instrumental (take `bgm_1`; `bgm_2` kept in `music/takes/`).
+  Its lift (17.45 s in the file) is trimmed to land on the logo reveal at 16.58 s (`MUSIC_TRIM`), and
+  `musicVolume()` ducks it ~4 dB under each narration line.
+- `remotion/public/sfx/*.mp3` – Sound Effects v3, peak-normalised to -3 dBFS (all 4 variations per sound in `sfx/takes/`).
+  Cue times and levels are in the `SFX` list in Promo.tsx: fibre cut, whooshes on scene changes, clock ticks,
+  UI pops for each list item/card, mouse click, scan sweep, logo hits and a success chime.
